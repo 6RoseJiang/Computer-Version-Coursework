@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Interactive Panorama Viewer</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+</head>
+<body>
+    <a-scene>
+        <!-- Camera with wrapper for zoom control -->
+        <a-entity id="cameraWrapper" position="0 1.6 0">
+            <a-camera look-controls-enabled="true">
+                <!-- Cursor added for interaction feedback within VR environment -->
+                <a-cursor></a-cursor>
+            </a-camera>
+        </a-entity>
+
+        <!-- Panorama sky element -->
+        <a-sky src="panorama.jpg" rotation="0 -130 0"></a-sky>
+
+        <!-- UI for Zoom In and Zoom Out -->
+        <div style="position: fixed; bottom: 20px; width: 100%; text-align: center; z-index: 999;">
+            <button onclick="zoomIn()">Zoom In</button>
+            <button onclick="zoomOut()">Zoom Out</button>
+        </div>
+
+        <script>
+            var cameraEl = document.getElementById('cameraWrapper');
+            var currentScale = 1;
+
+            function zoomIn() {
+                currentScale *= 1.5; // Increase scale by 15%
+                updateCameraScale();
+            }
+
+            function zoomOut() {
+                currentScale /= 1.5; // Decrease scale by 15%
+                updateCameraScale();
+            }
+
+            function updateCameraScale() {
+                // Update the scale of the camera wrapper
+                cameraEl.setAttribute('scale', {x: currentScale, y: currentScale, z: currentScale});
+            }
+        </script>
+    </a-scene>
+</body>
+</html>
